@@ -1,0 +1,44 @@
+<div>
+  <form class="form-inline" (ngSubmit)="addTask(taskform)" #taskform="ngForm">
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="task" ></label>
+
+      <input type="text" class="form-control" id="name"
+      [(ngModel)]="taskform.name" #name="ngModel" name="name" required minlength="1">
+
+      <div *ngIf="name.invalid && name.touched" class="alert alert-danger ml-4 mb-2">
+        Enter the name
+        <div *ngIf="name.errors.minlength">
+        Name must be at least 4 characters long.
+        </div>
+      </div>
+
+    </div>
+    <button type="submit" class="btn btn-outline-primary mb-2">Add</button>
+  </form>
+</div>
+
+<table class="table">
+
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Done</th>
+    </tr>
+  </thead>
+
+  <tbody *ngFor="let task of tasks; let i = index">
+
+    <td>{{task.name}}</td>
+    <td><input data-id={{i}} (change)='check($event)' 
+      class="input form-check-input" type="checkbox" name="completed" 
+      id="completed" [(ngModel)]="task.completed" ></td>
+
+    <button class="btn btn-danger btn-sm" (click)="deleteTask(task)">x</button>
+  </tbody>
+</table>
+
+
+
+
+
